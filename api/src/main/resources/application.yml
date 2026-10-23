@@ -1,0 +1,43 @@
+# All settings can be overridden with environment variables.
+# Defaults target a local MySQL (see README.md).
+
+spring:
+  application:
+    name: hangman-api
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/hangman}
+    username: ${SPRING_DATASOURCE_USERNAME:hangman}
+    password: ${SPRING_DATASOURCE_PASSWORD:hangman}
+  jpa:
+    open-in-view: false
+    hibernate:
+      # The schema is owned by Flyway; Hibernate only checks it matches the entities.
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  mvc:
+    # Return RFC 9457 "problem details" bodies for framework errors (e.g. validation).
+    problemdetails:
+      enabled: true
+
+server:
+  port: 8080
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+app:
+  version: ${APP_VERSION:dev}
+  environment: ${APP_ENVIRONMENT:development}
+  # When set, dictionary writes require the "X-Admin-Token" header.
+  admin-token: ${ADMIN_TOKEN:}
+
+# Sentry stays disabled while SENTRY_DSN is empty.
+sentry:
+  dsn: ${SENTRY_DSN:}
+  environment: ${app.environment}
+  release: ${app.version}

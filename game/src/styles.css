@@ -1,0 +1,206 @@
+:root {
+  --bg: #f4f1ea;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #d97706;
+  --accent-dark: #b45309;
+  --hit: #16a34a;
+  --miss: #dc2626;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 1rem 1.5rem;
+  background: var(--text);
+}
+
+.brand {
+  color: #fbbf24;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.footer {
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.06);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+button,
+.button {
+  font: inherit;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.game {
+  text-align: center;
+}
+
+.gallows {
+  width: 200px;
+  height: 220px;
+  stroke: var(--text);
+  stroke-width: 4;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.gallows-body {
+  stroke: var(--miss);
+}
+
+.word {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: ui-monospace, monospace;
+}
+
+.slot {
+  width: 1.6em;
+  border-bottom: 3px solid var(--text);
+}
+
+.attempts {
+  color: var(--muted);
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.6rem, 1fr));
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+}
+
+.key {
+  padding: 0.6rem 0;
+  font-weight: 600;
+}
+
+.key-hit {
+  background: var(--hit);
+  border-color: var(--hit);
+  color: #fff;
+}
+
+.key-miss {
+  background: var(--miss);
+  border-color: var(--miss);
+  color: #fff;
+}
+
+.result {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.result-won {
+  background: #dcfce7;
+}
+
+.result-lost {
+  background: #fee2e2;
+}
+
+.notice {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--card);
+}
+
+.notice-error {
+  margin-top: 1rem;
+  background: #fee2e2;
+  color: #991b1b;
+}
