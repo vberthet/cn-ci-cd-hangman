@@ -1,0 +1,33 @@
+# Services used by the devcontainer (development only, not for production).
+services:
+  workspace:
+    image: mcr.microsoft.com/devcontainers/java:3-25
+    volumes:
+      - ../..:/workspaces:cached
+    # Keep the container running so the IDE can attach to it
+    command: sleep infinity
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hangman
+      SPRING_DATASOURCE_USERNAME: hangman
+      SPRING_DATASOURCE_PASSWORD: hangman
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: hangman
+      MYSQL_USER: hangman
+      MYSQL_PASSWORD: hangman
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uhangman", "-phangman"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql-data:

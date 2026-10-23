@@ -1,0 +1,32 @@
+// Development environment for the Hangman project.
+// Open the repository in VS Code (or any devcontainer-compatible IDE) and choose
+// "Reopen in Container". See https://containers.dev/ for the specification.
+{
+  "name": "Hangman",
+  "dockerComposeFile": "compose.yaml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    },
+    // Lets you run `docker build` / `docker compose` from inside the devcontainer
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      // moby packages are not available on Debian trixie: install Docker CE instead
+      "moby": false
+    }
+  },
+  // api, game, dashboard, mysql
+  "forwardPorts": [8080, 5173, 5174, "mysql:3306"],
+  "postCreateCommand": "make install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-containers"
+      ]
+    }
+  }
+}
