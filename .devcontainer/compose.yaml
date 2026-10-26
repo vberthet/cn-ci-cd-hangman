@@ -3,13 +3,21 @@ services:
   workspace:
     image: mcr.microsoft.com/devcontainers/java:3-25
     volumes:
-      - ../..:/workspaces:cached
+      - ..:/workspaces/hangman:cached
+      # Write-heavy folders in named volumes: much faster than the bind mount on Windows/macOS
+      - game-node-modules:/workspaces/hangman/game/node_modules
+      - dashboard-node-modules:/workspaces/hangman/dashboard/node_modules
+      - api-target:/workspaces/hangman/api/target
+      # Maven + npm download caches, kept across container rebuilds
+      - dev-cache:/cache
     # Keep the container running so the IDE can attach to it
     command: sleep infinity
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hangman
       SPRING_DATASOURCE_USERNAME: hangman
       SPRING_DATASOURCE_PASSWORD: hangman
+      MAVEN_OPTS: -Dmaven.repo.local=/cache/m2
+      npm_config_cache: /cache/npm
     depends_on:
       mysql:
         condition: service_healthy
@@ -31,3 +39,7 @@ services:
 
 volumes:
   mysql-data:
+  game-node-modules:
+  dashboard-node-modules:
+  api-target:
+  dev-cache:

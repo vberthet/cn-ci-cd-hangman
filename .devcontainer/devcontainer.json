@@ -1,11 +1,14 @@
 // Development environment for the Hangman project.
 // Open the repository in VS Code (or any devcontainer-compatible IDE) and choose
 // "Reopen in Container". See https://containers.dev/ for the specification.
+//
+// Windows: for best performance, clone the repository inside WSL 2
 {
   "name": "Hangman",
   "dockerComposeFile": "compose.yaml",
   "service": "workspace",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // Must match the source mount in compose.yaml
+  "workspaceFolder": "/workspaces/hangman",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "24"
@@ -18,7 +21,7 @@
   },
   // api, game, dashboard, mysql
   "forwardPorts": [8080, 5173, 5174, "mysql:3306"],
-  "postCreateCommand": "make install",
+  "postCreateCommand": "sudo chown -R vscode:vscode game/node_modules dashboard/node_modules api/target /cache && make install",
   "customizations": {
     "vscode": {
       "extensions": [
